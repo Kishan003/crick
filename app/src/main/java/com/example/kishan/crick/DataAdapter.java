@@ -14,10 +14,12 @@ import java.util.ArrayList;
  */
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
-    private ArrayList<Data.Matches> matches;
+    private ArrayList<Matches> matches;
+    private OnmatchClickListener onmatchClickListener;
 
-    public DataAdapter(ArrayList<Data.Matches> matches ){
+    public DataAdapter(ArrayList<Matches> matches, OnmatchClickListener inMatchClickListener){
         this.matches= matches;
+        this.onmatchClickListener = inMatchClickListener;
 
     }
     @Override
@@ -27,8 +29,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(DataAdapter.ViewHolder holder, int i) {
-        holder.matches_tv.setText(matches.get(i).getTeam1()+matches.get(i).getTeam2());
+    public void onBindViewHolder(DataAdapter.ViewHolder holder, final int i) {
+        holder.matches_tv.setText(matches.get(i).getTeam1()+"V/S " + matches.get(i).getTeam2());
+        holder.matches_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onmatchClickListener.onMatchClicked(i);
+            }
+        });
 
     }
 
@@ -46,5 +55,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             super(view);
             matches_tv = (TextView)view.findViewById(R.id.match_tv);
         }
+    }
+    public interface OnmatchClickListener{
+        void onMatchClicked(int i);
+
     }
 }

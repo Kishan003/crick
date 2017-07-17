@@ -1,7 +1,9 @@
 package com.example.kishan.crick;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,10 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.widget.EditText;
 
 
 public class LogInFragment extends Fragment implements View.OnClickListener{
+    private EditText emailText;
+    private EditText passwordText;
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,13 +34,20 @@ public class LogInFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         Button login = (Button) view.findViewById(R.id.login_btn);
         login.setOnClickListener(this);
+        emailText = (EditText) view.findViewById(R.id.email);
+        passwordText = (EditText) view.findViewById(R.id.password);
+        sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
+
     }
 
     @Override
     public void onClick(View view) {
+        sharedPreferences.edit().putString("email", emailText.getText().toString()).apply();
+        sharedPreferences.edit().putString("password", passwordText.getText().toString()).apply();
         Intent intent = new Intent(getActivity(), DashBoardActivity.class);
         startActivity(intent);
 
 
     }
+
 }

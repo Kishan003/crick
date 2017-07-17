@@ -15,5 +15,7 @@ public interface CrickApi{
     @GET("/api/matches/")
     Call<Data> getmatches(@Header("apikey") String apikey);
 
+    @GET("/api/fantasySquad")
+    Call<Data> getteams(@Header("apikey") String apikey);
 
 }
