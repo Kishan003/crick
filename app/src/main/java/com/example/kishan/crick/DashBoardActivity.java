@@ -74,7 +74,7 @@ public class DashBoardActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(retrofit2.Call<Data> call, Throwable t) {
-                Log.d("api","failed hi hello");
+                Log.d("api","failed");
 
             }
 

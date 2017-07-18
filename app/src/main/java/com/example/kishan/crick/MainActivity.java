@@ -2,6 +2,8 @@ package com.example.kishan.crick;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.usb.UsbAccessory;
+import android.hardware.usb.UsbManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signup = (Button) findViewById(R.id.signup_btn);
         login.setOnClickListener(this);
         signup.setOnClickListener(this);
+        Intent intent1 = new Intent(getPackageName());
+        //UsbAccessory accessory = UsbManager.getAccessory(intent1);
+        UsbAccessory accessory = (UsbAccessory) intent1.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+
+
+
         sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         email = sharedPreferences.getString("email", "");
         Intent intent;
         if(!TextUtils.isEmpty(email)){
              intent = new Intent(MainActivity.this, DashBoardActivity.class);
             startActivity(intent);}
-//        }else {
-//            intent = new Intent(MainActivity.this, OnBoardActivity.class);
-//            startActivity(intent);
-//        }
 
 
 
